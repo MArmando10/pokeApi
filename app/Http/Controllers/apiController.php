@@ -17,8 +17,8 @@ class apiController extends Controller
     {
         //
         // dd("hola desde controller");
-        $poke = HTTP::get('https://pokeapi.co/api/v2/pokemon?limit=50&offset=0');
-            // dd($poke->name);
+        $poke = HTTP::get('https://pokeapi.co/api/v2/berry/{name}/');
+            // dd($poke);
         $pokemons = $poke->json();
         // dd($poke);
         return view('pokemon.index', compact('pokemons','poke'));
