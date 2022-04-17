@@ -26,7 +26,11 @@
   background: url('https://cdn.slidesharecdn.com/ss_thumbnails/pokemons-110928133507-phpapp01-thumbnail-4.jpg?cb=1317217001');
         background-size: cover;
         background-repeat:no-repeat;
+<<<<<<< HEAD
   
+=======
+  );
+>>>>>>> main
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-family: "Oswald", sans-serif;
@@ -53,6 +57,7 @@ h1 {
   background-color: #1532;
   border: double;
 }
+<<<<<<< HEAD
 
 .img-container {
   /* background-image: url("./blob.svg"); */
@@ -112,6 +117,8 @@ h1 {
   grid-template-columns: 1fr 2fr;
   text-align: left;
 }
+=======
+>>>>>>> main
 </style>
 
 
@@ -130,7 +137,11 @@ h1 {
             <!-- dentro va los selectores de anterior y siguiente -->
         </div>
     <!-- paginar -->
+<<<<<<< HEAD
     <nav class=" col-sm-12 col-md-6 pagination" aria-label="..." style="margin: 10px 0 0 50%;">
+=======
+    <nav class="pagination" aria-label="..." style="margin: 10px 0 0 50%;">
+>>>>>>> main
         <ul class="pagination">
           <li class="page-item" id="previous">
             <a class="page-link" href="#" tabindex="-1">Anterior</a>
@@ -143,6 +154,7 @@ h1 {
       <!-- termina paginación -->
     <div id="spinner" class="spinner-border text-light" role="status">
         <span class="visually-hidden">Loading...</span>
+<<<<<<< HEAD
     </div>
 
             <!-- insertar el script -->
@@ -153,131 +165,112 @@ h1 {
 
     
 
+=======
+    </div>
+
+            <!-- insertar el script -->
+             <script src="./main.js"></script>
+        </div>
+    </div>
+>>>>>>> main
+
+    <hr>
+
 
 
     <script>
-const pokemonContainer = document.querySelector(".pokemon-container");
-const spinner = document.querySelector("#spinner");
-const previous = document.querySelector("#previous");
-const next = document.querySelector("#next");
+        const pokemonContainer = document.querySelector(".pokemon-container");
+        const spinner = document.querySelector("#spinner");
+        const previous = document.querySelector("#previous");
+        const next = document.querySelector("#next");
 
-let limit = 8;
-let offset = 1;
+        let limit = 8;
+        let offset = 1;
 
-previous.addEventListener("click", () => {
-  if (offset != 1) {
-    offset -= 9;
-    removeChildNodes(pokemonContainer);
-    fetchPokemons(offset, limit);
-  }
-});
+        previous.addEventListener("click", () => {
+        if (offset != 1) {
+            offset -= 9;
+            removeChildNodes(pokemonContainer);
+            fetchPokemons(offset, limit);
+        }
+        });
 
-next.addEventListener("click", () => {
-  offset += 9;
-  removeChildNodes(pokemonContainer);
-  fetchPokemons(offset, limit);
-});
+        next.addEventListener("click", () => {
+        offset += 9;
+        removeChildNodes(pokemonContainer);
+        fetchPokemons(offset, limit);
+        });
 
-function fetchPokemon(id) {
-  fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-      createPokemon(data);
-      spinner.style.display = "none";
-    });
-}
+        function fetchPokemon(id) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+            .then((res) => res.json())
+            .then((data) => {
+            createPokemon(data);
+            spinner.style.display = "none";
+            });
+        }
 
-function fetchPokemons(offset, limit) {
-  spinner.style.display = "block";
-  for (let i = offset; i <= offset + limit; i++) {
-    fetchPokemon(i);
-  }
-}
+        function fetchPokemons(offset, limit) {
+        spinner.style.display = "block";
+        for (let i = offset; i <= offset + limit; i++) {
+            fetchPokemon(i);
+        }
+        }
 
-function createPokemon(pokemon) {
-  const flipCard = document.createElement("div");
-  flipCard.classList.add("flip-card");
+        function createPokemon(pokemon) {
+        const flipCard = document.createElement("div");
+        flipCard.classList.add("flip-card");
 
-  const cardContainer = document.createElement("div");
-  cardContainer.classList.add("card-container");
+        const cardContainer = document.createElement("div");
+        cardContainer.classList.add("card-container");
 
-  flipCard.appendChild(cardContainer);
+        flipCard.appendChild(cardContainer);
 
-  const card = document.createElement("div");
-  card.classList.add("pokemon-block");
+        const card = document.createElement("div");
+        card.classList.add("pokemon-block");
 
-  const spriteContainer = document.createElement("div");
-  spriteContainer.classList.add("img-container");
+        const spriteContainer = document.createElement("div");
+        spriteContainer.classList.add("img-container");
 
-  const sprite = document.createElement("img");
-  sprite.src = pokemon.sprites.front_default;
+        const sprite = document.createElement("img");
+        sprite.src = pokemon.sprites.front_default;
 
-  spriteContainer.appendChild(sprite);
+        spriteContainer.appendChild(sprite);
 
-  const number = document.createElement("p");
-  number.textContent = `#${pokemon.id.toString().padStart(3, 0)}`;
+        const number = document.createElement("p");
+        number.textContent = `#${pokemon.id.toString().padStart(3, 0)}`;
 
-  const name = document.createElement("p");
-  name.classList.add("name");
-  name.textContent = pokemon.name;
+        const name = document.createElement("p");
+        name.classList.add("name");
+        name.textContent = pokemon.name;
 
-  card.appendChild(spriteContainer);
-  card.appendChild(number);
-  card.appendChild(name);
+        card.appendChild(spriteContainer);
+        card.appendChild(number);
+        card.appendChild(name);
 
-  const cardBack = document.createElement("div");
-  cardBack.classList.add("pokemon-block-back");
+        const cardBack = document.createElement("div");
+        cardBack.classList.add("pokemon-block-back");
 
-  cardBack.appendChild(progressBars(pokemon.stats));
+        cardBack.appendChild(progressBars(pokemon.stats));
 
-  cardContainer.appendChild(card);
-  cardContainer.appendChild(cardBack);
-  pokemonContainer.appendChild(flipCard);
-}
+        cardContainer.appendChild(card);
+        cardContainer.appendChild(cardBack);
+        pokemonContainer.appendChild(flipCard);
+        }
 
-function progressBars(stats) {
-  const statsContainer = document.createElement("div");
-  statsContainer.classList.add("stats-container");
+        function progressBars(stats) {
+        const statsContainer = document.createElement("div");
 
-  for (let i = 0; i < 3; i++) {
-    const stat = stats[i];
+        return statsContainer;
+        }
 
-    const statPercent = stat.base_stat / 2 + "%";
-    const statContainer = document.createElement("stat-container");
-    statContainer.classList.add("stat-container");
+        function removeChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        }
 
-    const statName = document.createElement("p");
-    statName.textContent = stat.stat.name;
-
-    const progress = document.createElement("div");
-    progress.classList.add("progress");
-
-    const progressBar = document.createElement("div");
-    progressBar.classList.add("progress-bar");
-    progressBar.setAttribute("aria-valuenow", stat.base_stat);
-    progressBar.setAttribute("aria-valuemin", 0);
-    progressBar.setAttribute("aria-valuemax", 200);
-    progressBar.style.width = statPercent;
-
-    progressBar.textContent = stat.base_stat;
-
-    progress.appendChild(progressBar);
-    statContainer.appendChild(statName);
-    statContainer.appendChild(progress);
-
-    statsContainer.appendChild(statContainer);
-  }
-
-  return statsContainer;
-}
-
-function removeChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
-fetchPokemons(offset, limit);
+        fetchPokemons(offset, limit);
 
     </script>
 </body>
