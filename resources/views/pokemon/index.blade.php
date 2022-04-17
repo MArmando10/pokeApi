@@ -29,7 +29,7 @@
   background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0.1, 0)), url('https://cdn.slidesharecdn.com/ss_thumbnails/pokemons-110928133507-phpapp01-thumbnail-4.jpg?cb=1317217001');
         background-size: cover;
         background-repeat:no-repeat;
-  );
+  
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-family: "Oswald", sans-serif;
@@ -98,14 +98,16 @@ h1 {
 
 
     <title>Datos de apiPokemon</title>
+
 </head>
+
 <body>
 
     <div class="row  border p-5 mt-5 ">
         <div class=" col-sm-6 col-md-12">
 
     
-            <!-- <h1 >Datos de POKEMONES</h1> -->
+            
             <h1 class="title">Datos de POKEMONES</h1>
             
         <div class="pokemon-container">
