@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use PokeAPI\Client;
+
 use Illuminate\Http\Request;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 
 
@@ -17,11 +18,12 @@ class apiController extends Controller
     {
         //
         // dd("hola desde controller");
-        $poke = HTTP::get('https://pokeapi.co/api/v2/berry/{name}/');
-            // dd($poke);
-        $pokemons = $poke->json();
+        // $poke = HTTP::get('https://pokeapi.co/api/v2/ability/?limit=20&offset=20');
+        $response = Http::get('https://pokeapi.co/api/v2/pokemon/25');
+            // dd($response);
+        $pokemons = $response->json();
         // dd($poke);
-        return view('pokemon.index', compact('pokemons','poke'));
+        return view('pokemon.index', compact('pokemons'));
     }
 
     /**

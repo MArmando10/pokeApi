@@ -26,17 +26,17 @@
 
 <style>
     body {
+        overflow-x: hidden;
+    overflow-y: hidden;
   background: rgb(85, 144, 189);
-  background: linear-gradient(
-    90deg,
-    rgba(85, 144, 189, 1) 0%,
-    rgba(108, 183, 240, 1) 54%,
-    rgba(182, 216, 242, 1) 82%
+  background: url('https://cdn.slidesharecdn.com/ss_thumbnails/pokemons-110928133507-phpapp01-thumbnail-4.jpg?cb=1317217001');
+        background-size: cover;
+        background-repeat:no-repeat;
   );
-  text-align: center;
-  font-family: Arial, Helvetica, sans-serif;
-  font-family: "Oswald", sans-serif;
-}
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-family: "Oswald", sans-serif;
+    }
 
 h1 {
   color: white;
@@ -49,8 +49,6 @@ h1 {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 40px;
-  margin-top: 20px;
 }
 
 .pokemon-block,
@@ -60,68 +58,6 @@ h1 {
   background-color: white;
   box-shadow: 0 3px 15px rgba(100, 100, 100, 0.5);
 }
-
-.img-container {
-  background-image: url("./blob.svg");
-  background-repeat: no-repeat;
-  background-position: center;
-}
-
-.pokemon-block p {
-  margin: 5px;
-}
-
-.name {
-  text-transform: capitalize;
-  font-weight: bold;
-  font-size: 1.2rem;
-}
-
-#spinner {
-  display: none;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-}
-
-.pagination {
-  width: 90%;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 50px;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .card-container {
-  transform: rotateY(180deg);
-}
-
-.pokemon-block,
-.pokemon-block-back {
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-}
-
-.pokemon-block-back {
-  transform: rotateY(180deg);
-  position: absolute;
-  top: 0%;
-}
-
-.stat-container {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  text-align: left;
-}
 </style>
 
 
@@ -130,57 +66,17 @@ h1 {
 <body>
 
     <div class="row  border p-5 mt-5 ">
-        <div class=" col-sm-8 col-md-12">
+        <div class=" col-sm-6 col-md-12">
 
     
-            <h1 >Datos de POKEMONES</h1>
-            <!-- <table class=" table table-striped">
-                <thead class="thead-dark">    
-                    <tr>
-                    <th>Nombre</th>
-                    <th>Tipo</th>
-                    <th>foto</th>
-                    </tr>
-                </thead>
-                
-                <tbody>
-                    @foreach($poke as $p)
-                        <tr>
-                            <th scope="row"></th>
-                            <td>{{$pokemons}}</td>
-                            <td></td>
-                            <td></td>
-                      
-
-                        <td>
-                <form action="" method="" id="">
-                    @csrf
-                    @method('DELETE')
-
-                 
-                    <a class="btn-sm btn-info botonInput" href=""><i class="far fa-edit"></i>Editar</a>
+            <!-- <h1 >Datos de POKEMONES</h1> -->
+            <h1 class="title">Datos de POKEMONES</h1>
             
-
-                  <button type="submit" class="btn-sm btn-danger " onclick="return confirmSweetAlertDestroy('Desactivar','Realmente quieres desactivar','warning','desactivado','Se desactivo.','destroy')"><i class="fas fa-user-slash"></i>Eliminar</button>
-
-
-                 </td>     
-                 
-                </form>
-                </tr>
-                    @endforeach
-                </tbody>
-            </table> -->
-
-
-
-
-
-            <!-- <h1 class="title">Pokedex</h1> -->
-    <div class="pokemon-container">
-
-    </div>
-    <nav class="pagination" aria-label="...">
+        <div class="pokemon-container">
+            <!-- dentro va los selectores de anterior y siguiente -->
+        </div>
+    <!-- paginar -->
+    <nav class="pagination" aria-label="..." style="margin: 10px 0 0 50%;">
         <ul class="pagination">
           <li class="page-item" id="previous">
             <a class="page-link" href="#" tabindex="-1">Anterior</a>
@@ -190,138 +86,113 @@ h1 {
           </li>
         </ul>
       </nav>
+      <!-- termina paginación -->
     <div id="spinner" class="spinner-border text-light" role="status">
         <span class="visually-hidden">Loading...</span>
-      </div>
-    <script src="./main.js"></script>
+    </div>
+
+            <!-- insertar el script -->
+             <script src="./main.js"></script>
         </div>
     </div>
+
+    <hr>
 
 
 
     <script>
-const pokemonContainer = document.querySelector(".pokemon-container");
-const spinner = document.querySelector("#spinner");
-const previous = document.querySelector("#previous");
-const next = document.querySelector("#next");
+        const pokemonContainer = document.querySelector(".pokemon-container");
+        const spinner = document.querySelector("#spinner");
+        const previous = document.querySelector("#previous");
+        const next = document.querySelector("#next");
 
-let limit = 8;
-let offset = 1;
+        let limit = 8;
+        let offset = 1;
 
-previous.addEventListener("click", () => {
-  if (offset != 1) {
-    offset -= 9;
-    removeChildNodes(pokemonContainer);
-    fetchPokemons(offset, limit);
-  }
-});
+        previous.addEventListener("click", () => {
+        if (offset != 1) {
+            offset -= 9;
+            removeChildNodes(pokemonContainer);
+            fetchPokemons(offset, limit);
+        }
+        });
 
-next.addEventListener("click", () => {
-  offset += 9;
-  removeChildNodes(pokemonContainer);
-  fetchPokemons(offset, limit);
-});
+        next.addEventListener("click", () => {
+        offset += 9;
+        removeChildNodes(pokemonContainer);
+        fetchPokemons(offset, limit);
+        });
 
-function fetchPokemon(id) {
-  fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
-    .then((res) => res.json())
-    .then((data) => {
-      createPokemon(data);
-      spinner.style.display = "none";
-    });
-}
+        function fetchPokemon(id) {
+        fetch(`https://pokeapi.co/api/v2/pokemon/${id}/`)
+            .then((res) => res.json())
+            .then((data) => {
+            createPokemon(data);
+            spinner.style.display = "none";
+            });
+        }
 
-function fetchPokemons(offset, limit) {
-  spinner.style.display = "block";
-  for (let i = offset; i <= offset + limit; i++) {
-    fetchPokemon(i);
-  }
-}
+        function fetchPokemons(offset, limit) {
+        spinner.style.display = "block";
+        for (let i = offset; i <= offset + limit; i++) {
+            fetchPokemon(i);
+        }
+        }
 
-function createPokemon(pokemon) {
-  const flipCard = document.createElement("div");
-  flipCard.classList.add("flip-card");
+        function createPokemon(pokemon) {
+        const flipCard = document.createElement("div");
+        flipCard.classList.add("flip-card");
 
-  const cardContainer = document.createElement("div");
-  cardContainer.classList.add("card-container");
+        const cardContainer = document.createElement("div");
+        cardContainer.classList.add("card-container");
 
-  flipCard.appendChild(cardContainer);
+        flipCard.appendChild(cardContainer);
 
-  const card = document.createElement("div");
-  card.classList.add("pokemon-block");
+        const card = document.createElement("div");
+        card.classList.add("pokemon-block");
 
-  const spriteContainer = document.createElement("div");
-  spriteContainer.classList.add("img-container");
+        const spriteContainer = document.createElement("div");
+        spriteContainer.classList.add("img-container");
 
-  const sprite = document.createElement("img");
-  sprite.src = pokemon.sprites.front_default;
+        const sprite = document.createElement("img");
+        sprite.src = pokemon.sprites.front_default;
 
-  spriteContainer.appendChild(sprite);
+        spriteContainer.appendChild(sprite);
 
-  const number = document.createElement("p");
-  number.textContent = `#${pokemon.id.toString().padStart(3, 0)}`;
+        const number = document.createElement("p");
+        number.textContent = `#${pokemon.id.toString().padStart(3, 0)}`;
 
-  const name = document.createElement("p");
-  name.classList.add("name");
-  name.textContent = pokemon.name;
+        const name = document.createElement("p");
+        name.classList.add("name");
+        name.textContent = pokemon.name;
 
-  card.appendChild(spriteContainer);
-  card.appendChild(number);
-  card.appendChild(name);
+        card.appendChild(spriteContainer);
+        card.appendChild(number);
+        card.appendChild(name);
 
-  const cardBack = document.createElement("div");
-  cardBack.classList.add("pokemon-block-back");
+        const cardBack = document.createElement("div");
+        cardBack.classList.add("pokemon-block-back");
 
-  cardBack.appendChild(progressBars(pokemon.stats));
+        cardBack.appendChild(progressBars(pokemon.stats));
 
-  cardContainer.appendChild(card);
-  cardContainer.appendChild(cardBack);
-  pokemonContainer.appendChild(flipCard);
-}
+        cardContainer.appendChild(card);
+        cardContainer.appendChild(cardBack);
+        pokemonContainer.appendChild(flipCard);
+        }
 
-function progressBars(stats) {
-  const statsContainer = document.createElement("div");
-  statsContainer.classList.add("stats-container");
+        function progressBars(stats) {
+        const statsContainer = document.createElement("div");
 
-  for (let i = 0; i < 3; i++) {
-    const stat = stats[i];
+        return statsContainer;
+        }
 
-    const statPercent = stat.base_stat / 2 + "%";
-    const statContainer = document.createElement("stat-container");
-    statContainer.classList.add("stat-container");
+        function removeChildNodes(parent) {
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+        }
 
-    const statName = document.createElement("p");
-    statName.textContent = stat.stat.name;
-
-    const progress = document.createElement("div");
-    progress.classList.add("progress");
-
-    const progressBar = document.createElement("div");
-    progressBar.classList.add("progress-bar");
-    progressBar.setAttribute("aria-valuenow", stat.base_stat);
-    progressBar.setAttribute("aria-valuemin", 0);
-    progressBar.setAttribute("aria-valuemax", 200);
-    progressBar.style.width = statPercent;
-
-    progressBar.textContent = stat.base_stat;
-
-    progress.appendChild(progressBar);
-    statContainer.appendChild(statName);
-    statContainer.appendChild(progress);
-
-    statsContainer.appendChild(statContainer);
-  }
-
-  return statsContainer;
-}
-
-function removeChildNodes(parent) {
-  while (parent.firstChild) {
-    parent.removeChild(parent.firstChild);
-  }
-}
-
-fetchPokemons(offset, limit);
+        fetchPokemons(offset, limit);
 
     </script>
 </body>
