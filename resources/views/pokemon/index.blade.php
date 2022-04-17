@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,10 +10,13 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
 
- 
+
+
+    <link rel="stylesheet" href="./style.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
+
 
 
 
@@ -23,10 +26,10 @@
         overflow-x: hidden;
     overflow-y: hidden;
   background: rgb(85, 144, 189);
-  background: url('https://cdn.slidesharecdn.com/ss_thumbnails/pokemons-110928133507-phpapp01-thumbnail-4.jpg?cb=1317217001');
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0.1, 0)), url('https://cdn.slidesharecdn.com/ss_thumbnails/pokemons-110928133507-phpapp01-thumbnail-4.jpg?cb=1317217001');
         background-size: cover;
         background-repeat:no-repeat;
-  
+  );
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-family: "Oswald", sans-serif;
@@ -34,7 +37,6 @@
 
 h1 {
   color: white;
-  font-style: italic;
 }
 
 .pokemon-container {
@@ -48,20 +50,17 @@ h1 {
 
 .pokemon-block,
 .pokemon-block-back {
-  border-radius: 25px;
-  padding: 15px;
+  border-radius: 100px;
+  padding: 10px;
+  background-color: white;
   background-color: #1532;
   border: double;
 }
 
-.img-container {
-  /* background-image: url("./blob.svg"); */
-  background-repeat: no-repeat;
-  background-position: center;
-}
 
 .pokemon-block p {
-  margin: 5px;
+  margin: 15px;
+  color: white
 }
 
 .name {
@@ -78,34 +77,17 @@ h1 {
 }
 
 .pagination {
-  width: 50%;
-}
-
-.card-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  transition: transform 0.8s;
-  transform-style: preserve-3d;
-}
-
-.flip-card:hover .card-container {
-  transform: rotateY(180deg);
-}
-
-.pokemon-block,
-.pokemon-block-back {
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50px;
 }
 
 .pokemon-block-back {
   transform: rotateY(180deg);
   position: absolute;
   top: 0%;
-}
+} 
 
 .stat-container {
   display: grid;
@@ -115,8 +97,8 @@ h1 {
 </style>
 
 
-    <title> Datos de apiPokemon</title>
-
+    <title>Datos de apiPokemon</title>
+</head>
 <body>
 
     <div class="row  border p-5 mt-5 ">
@@ -130,7 +112,7 @@ h1 {
             <!-- dentro va los selectores de anterior y siguiente -->
         </div>
     <!-- paginar -->
-    <nav class=" col-sm-12 col-md-6 pagination" aria-label="..." style="margin: 10px 0 0 50%;">
+    <nav class="pagination" aria-label="..." style="margin: 10px 0 0 50%;">
         <ul class="pagination">
           <li class="page-item" id="previous">
             <a class="page-link" href="#" tabindex="-1">Anterior</a>
@@ -146,12 +128,11 @@ h1 {
     </div>
 
             <!-- insertar el script -->
-             <!-- <script src="./script.js"></script> -->
+             <script src="./script.js"></script>
         </div>
-        
     </div>
 
-    
+    <hr>
 
 
 
@@ -228,7 +209,7 @@ function createPokemon(pokemon) {
   const cardBack = document.createElement("div");
   cardBack.classList.add("pokemon-block-back");
 
-  cardBack.appendChild(progressBars(pokemon.stats));
+//   cardBack.appendChild(progressBars(pokemon.stats));
 
   cardContainer.appendChild(card);
   cardContainer.appendChild(cardBack);
@@ -239,34 +220,6 @@ function progressBars(stats) {
   const statsContainer = document.createElement("div");
   statsContainer.classList.add("stats-container");
 
-  for (let i = 0; i < 3; i++) {
-    const stat = stats[i];
-
-    const statPercent = stat.base_stat / 2 + "%";
-    const statContainer = document.createElement("stat-container");
-    statContainer.classList.add("stat-container");
-
-    const statName = document.createElement("p");
-    statName.textContent = stat.stat.name;
-
-    const progress = document.createElement("div");
-    progress.classList.add("progress");
-
-    const progressBar = document.createElement("div");
-    progressBar.classList.add("progress-bar");
-    progressBar.setAttribute("aria-valuenow", stat.base_stat);
-    progressBar.setAttribute("aria-valuemin", 0);
-    progressBar.setAttribute("aria-valuemax", 200);
-    progressBar.style.width = statPercent;
-
-    progressBar.textContent = stat.base_stat;
-
-    progress.appendChild(progressBar);
-    statContainer.appendChild(statName);
-    statContainer.appendChild(progress);
-
-    statsContainer.appendChild(statContainer);
-  }
 
   return statsContainer;
 }
